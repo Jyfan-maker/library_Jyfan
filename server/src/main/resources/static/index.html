@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图书管理系统</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-logo">图</span><span>图书管理系统</span></div>
+      <nav>
+        <a href="javascript:;" class="nav-item active" data-page="books">📚 图书管理</a>
+        <a href="javascript:;" class="nav-item" data-page="borrow">🔄 借阅管理</a>
+        <a href="javascript:;" class="nav-item" data-page="category">🏷️ 分类管理</a>
+        <a href="javascript:;" class="nav-item" data-page="stat">📊 统计报表</a>
+      </nav>
+      <div class="sidebar-foot">范记永 · 2024003296</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <span id="welcome">加载中...</span>
+        <button class="btn-ghost" id="logoutBtn">退出登录</button>
+      </header>
+
+      <!-- 图书管理 -->
+      <section class="page" id="page-books">
+        <div class="page-head">
+          <h2>图书管理</h2>
+          <button class="btn-primary" id="addBookBtn">+ 新增图书</button>
+        </div>
+        <div class="toolbar">
+          <input id="bookKeyword" placeholder="按书名 / 作者 / ISBN 搜索">
+          <button class="btn-primary" id="searchBookBtn">搜索</button>
+          <button class="btn-ghost" id="resetBookBtn">重置</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>编号</th><th>书名</th><th>作者</th><th>ISBN</th><th>分类</th><th>单价</th><th>库存</th><th>操作</th></tr></thead>
+            <tbody id="bookBody"></tbody>
+          </table>
+        </div>
+        <div class="pager" id="bookPager"></div>
+      </section>
+
+      <!-- 借阅管理 -->
+      <section class="page" id="page-borrow" hidden>
+        <div class="page-head">
+          <h2>借阅管理</h2>
+          <button class="btn-primary" id="addBorrowBtn">+ 借书</button>
+        </div>
+        <div class="toolbar">
+          <label><input type="checkbox" id="myOnly"> 只看我的借阅</label>
+          <button class="btn-ghost" id="refreshBorrowBtn">刷新</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>编号</th><th>读者</th><th>书名</th><th>借出时间</th><th>归还时间</th><th>状态</th><th>罚金</th><th>操作</th></tr></thead>
+            <tbody id="borrowBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 分类管理 -->
+      <section class="page" id="page-category" hidden>
+        <div class="page-head">
+          <h2>分类管理</h2>
+          <button class="btn-primary" id="addCategoryBtn">+ 新增分类</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>编号</th><th>分类名称</th><th>说明</th><th>操作</th></tr></thead>
+            <tbody id="categoryBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 统计报表 -->
+      <section class="page" id="page-stat" hidden>
+        <div class="page-head"><h2>统计报表</h2></div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="stat-label">图书总数</div><div class="stat-value" id="statTotal">-</div></div>
+          <div class="stat-card"><div class="stat-label">库存总量</div><div class="stat-value" id="statStock">-</div></div>
+          <div class="stat-card"><div class="stat-label">库存总价值</div><div class="stat-value" id="statValue">-</div></div>
+        </div>
+        <div class="charts">
+          <div class="chart-box">
+            <h3>按分类统计册数</h3>
+            <div id="categoryStat"></div>
+          </div>
+          <div class="chart-box">
+            <h3>按分类统计借阅次数</h3>
+            <div id="borrowStat"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 弹窗 -->
+  <div class="modal-mask" id="modalMask" hidden>
+    <div class="modal">
+      <div class="modal-head"><h3 id="modalTitle">编辑</h3><button class="modal-close" id="modalClose">×</button></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn-ghost" id="modalCancel">取消</button>
+        <button class="btn-primary" id="modalSave">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
